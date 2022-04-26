@@ -9,6 +9,5 @@ namespace coup{
         Duke(Game &game, string name);
         void block(Player p);
         void tax();
-      //  int coins();
     };
 }
