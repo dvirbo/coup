@@ -9,9 +9,8 @@ namespace coup
     class Contessa : public Player
     {
     public:
-        Contessa(Game &game, string name); //constuctor
+       Contessa(Game &game, string name); //constuctor
         void block(Player p);
-
     };
 }
 

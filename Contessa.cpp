@@ -7,16 +7,18 @@ namespace coup
     { // call the constructor of the Parent class..
     }
 
-    void block(Player p)
-    { // block the Assassin
-
-        cout << "block by Contessa" << endl;
-    }
-
-    void coup(Player p)
+    void Contessa::block(Player p) // block the Assassin
     {
-        cout << p._name << "coup by Contessa" << endl;
-    }
+        // check if the player that block is the Assassin - he is the only one that can blocked by Contessa
+        string checkRole = p.role();
+        if (checkRole.compare("Assassin") == 0)
+        {
+            /* 
+            need to restore the coup :
+             restore the player
 
+            */
+        }
+    }
 
 }

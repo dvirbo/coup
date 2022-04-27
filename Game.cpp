@@ -1,7 +1,9 @@
 #include "Game.hpp"
 namespace coup
+
+
 {
-    // init the game
+    // init the index of the first player
     Game::Game()
     {
         this-> _curr = 0;

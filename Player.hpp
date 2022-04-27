@@ -1,21 +1,23 @@
 #include "Game.hpp"
 #include <string>
-#include <stdexcept>
+#pragma once
 
-using namespace std;
-namespace coup{
+namespace coup
+{
+    class Game;
     class Player
     {
     public:
         string _name;
         int _coins;
-        Game* _game;
+        Game *_game;
         Player(Game &game, string name);
-        void income(); // +1 from the cashbox
-        void foreign_aid(); // +2 from the cashbox
-        void coup(Player p); //
-        string role(); //return the role of the player
-        int coins();  //return the numbers of coins of the player
+        void income();       // +1 from the cashbox
+        void foreign_aid();  // +2 from the cashbox
+        void coup(Player p); 
+        string role();       // return the role of the player
+        int coins();         // return the numbers of coins of the player
+        bool check_turn();
     };
-    
+
 }
