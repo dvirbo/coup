@@ -4,28 +4,28 @@ namespace coup
     // init the game
     Game::Game()
     {
-        this->curr_player = 0;
+        this-> _curr = 0;
     }
 
     vector<string> Game::players()
     {
-        for (unsigned int i = 0; i < this->list.size(); i++)
+        for (unsigned int i = 0; i < this->_list.size(); i++)
         {
-            cout << list[i] << endl;
+            cout << _list[i] << endl;
         }
-        return list;
+        return _list;
     }
 
     string Game::turn()
     {
-        return this->list[curr_player];
+        return this->_list[ _curr];
     }
 
     string Game::winner()
     {
-        if (this->list.size() == 1) // check if there only one player in the list:
+        if (this->_list.size() == 1) // check if there only one player in the list:
         {
-            return this->list.at(0);
+            return this->_list.at(0);
         }
         else
             throw "the game still occurs";

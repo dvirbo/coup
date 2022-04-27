@@ -1,7 +1,9 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+
 using namespace std;
+#pragma once
 
 namespace coup
 {
@@ -11,9 +13,9 @@ namespace coup
     public:
         Game();
 
-        unsigned int curr_player; // index of the current player 
-        int cashbox;         // how much coins in the box
-        vector<string> list; // list of players
+        unsigned int _curr;   // index of the current player
+        int cashbox;          // how much coins in the box  ??
+        vector<string> _list; // list that contain the names of the players
 
         string turn();            // Returns the name of the player whose turn to play
         vector<string> players(); // returns the names of the players who are active in the game.

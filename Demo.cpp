@@ -22,8 +22,7 @@ using namespace std;
 
 int main() {
 
-	coup::Game game_1{};
-
+	Game game_1{};
 	/* This player drew the "Duke" card, his name is Moshe
 	and he is a player in game_1 */
 	Duke duke{game_1, "Moshe"};
@@ -34,19 +33,20 @@ int main() {
 
 	vector<string> players = game_1.players();
 
-	/*
-		prints:
-		Moshe
-		Yossi
-		Meirav
-		Reut
-		Gilad
-	*/
+	// /*
+	// 	prints:
+	// 	Moshe
+	// 	Yossi
+	// 	Meirav
+	// 	Reut
+	// 	Gilad
+	// */
 	for(string name : players){
 		cout << name << endl;
 	}
+	duke.role();
 
-	// prints Moshe
+	// // prints Moshe
 	cout << game_1.turn() << endl;
 
 	// throws no exceptions
@@ -113,7 +113,7 @@ int main() {
 		Meirav
 		Reut
 		Gilad
-	*/
+	// */
 	for (string name : players)
 	{
 		cout << name << endl;

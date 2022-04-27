@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-#include <Game.hpp>
+#include "Player.hpp"
 
 namespace coup
 {
