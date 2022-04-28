@@ -3,7 +3,7 @@ using namespace std;
 
 namespace coup
 {
-    Assassin::Assassin(Game &game, string name) : Player(game, name)
+    Assassin::Assassin(Game &game, string const &name) :  Player(game, name)
     {
         this->_roleName = "Assassin";
     }
@@ -24,7 +24,7 @@ namespace coup
         }
         for (unsigned int i = 0; i < this->_game->_list.size(); i++)
         {
-            if (p._name.compare(this->_game->_list[i]) == 0)
+            if (p._name != this->_game->_list[i] )
             { //  equals:
                 this->_game->_list.erase(this->_game->_list.begin() + i);
                 this->_coins -= 3;

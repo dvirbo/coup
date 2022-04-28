@@ -8,7 +8,7 @@ namespace coup
     class Assassin : public Player
     {
     public:
-        Assassin(Game &game, string name); // constuctor
+        Assassin(Game &game, string const &name); // constuctor
         void coup(Player &p);
     };
 }

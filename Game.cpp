@@ -8,13 +8,10 @@ namespace coup
         this->_curr = 0;
     }
 
-    vector<string> Game::players()
+     vector<string> Game::players() const
     {
-        // for (unsigned int i = 0; i < this->_list.size(); i++)
-        // {
-        //     cout << _list[i] << endl;
-        // }
-        return _list;
+
+        return this->_list;
     }
 
     string Game::turn()
@@ -28,8 +25,8 @@ namespace coup
         {
             return this->_list.at(0);
         }
-        else
-            throw "the game still occurs";
+
+        throw domain_error("the game still occurs");
     }
     void Game::round()
     {

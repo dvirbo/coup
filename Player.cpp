@@ -2,9 +2,11 @@
 #include "Game.hpp"
 
 using namespace std;
+const int MUSTCOUP = 10;
+const int COST = 7;
 namespace coup
 {
-    Player::Player(Game &game, string name)
+    Player::Player(Game &game, string const &name)
     {
         this->_game = &game;
         this->_name = name;
@@ -13,21 +15,19 @@ namespace coup
         this->_game->_list.push_back(name); // add the name player to the list
     }
     // this function check if this is the turn of the player
-    bool Player::check_turn()
+    bool Player::check_turn() const
     {
-        if (this->_name.compare(this->_game->turn()) == 0)
+        string tmp = this->_game->turn();
+        if (this->_name != tmp)
         {
-            if (this->_coins == 10)
+            if (this->_coins == MUSTCOUP)
             {
                 // need to call coup with some player object.. how to do that?
                 // coup()
             }
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     void Player::income()
@@ -60,8 +60,9 @@ namespace coup
     {
         if (check_turn())
         {
+
             this->_game->round();
-            if (this->_coins < 7)
+            if (this->_coins < COST)
             {
                 throw domain_error("the player dont have enough coins");
                 return;
@@ -69,10 +70,10 @@ namespace coup
 
             for (unsigned int i = 0; i < this->_game->_list.size(); i++)
             {
-                if (p._name.compare(this->_game->_list[i]) == 0)
+                if (p._name != this->_game->_list[i])
                 { //  equals
                     this->_game->_list.erase(this->_game->_list.begin() + i);
-                    this->_coins -= 7;
+                    this->_coins -= COST;
                     this->_lastAct = "coup";
                     this->_enemy.push_back(p);
                     return;
@@ -83,12 +84,12 @@ namespace coup
         throw domain_error("this is not the player turn");
     }
 
-    string Player::role()
+    string Player::role() const
     {
         return this->_roleName;
     }
 
-    int Player::coins()
+     int Player::coins() const
     {
         return this->_coins;
     }

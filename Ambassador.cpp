@@ -3,7 +3,7 @@ using namespace std;
 
 namespace coup
 {
-    Ambassador::Ambassador(Game &game, string name) : Player(game, name)
+    Ambassador::Ambassador(Game &game, string const &name) : Player(game, name)
     {
         this->_roleName = "Ambassador";
     }
@@ -12,18 +12,15 @@ namespace coup
     {
         string ans = p._roleName;
         // check if the Player is the Captain and if the last act was steal..
-        if (ans.compare("Captain") != 0 || p._lastAct.compare("steal") != 0)
+        if (ans != "Captain" || p._lastAct != "steal")
         {
             throw domain_error("eror of input");
             return;
         }
-        else
-        {
-            p._enemy.back()._coins += 2;
-            p._coins -= 2;
-            p._enemy.pop_back();
-            p._lastAct = ""; // to prevent mult blocking...
-        }
+        p._enemy.back()._coins += 2;
+        p._coins -= 2;
+        p._enemy.pop_back();
+        p._lastAct = ""; // to prevent mult blocking...
     }
     // transfers 1 coin from a to b
     void Ambassador::transfer(Player &a, Player &b)
@@ -40,12 +37,10 @@ namespace coup
             this->_lastAct = "";
             return;
         }
-        else
-        {
-            a._coins--;
-            b._coins++;
-            this->_lastAct = "transfer";
-        }
+
+        a._coins--;
+        b._coins++;
+        this->_lastAct = "transfer";
     }
 
 }

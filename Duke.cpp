@@ -3,7 +3,7 @@ using namespace std;
 
 namespace coup
 {
-    Duke::Duke(Game &game, string name) : Player(game, name)
+    Duke::Duke(Game &game, string const &name) :  Player(game, name)
     { // call the constructor of the Parent class..
                 this->_roleName = "Duke";
 
@@ -11,16 +11,15 @@ namespace coup
 
     void Duke::block(Player &p)
     {
-        if (p._lastAct.compare("foreign_aid") != 0)
+        if (p._lastAct != "foreign_aid")
         {
             throw domain_error("Duke can block only foreign_aid");
             return;
         }
-        else
-        {
+        
             p._coins -= 2;
             p._lastAct = "";
-        }
+        
     }
 
     void Duke::tax()

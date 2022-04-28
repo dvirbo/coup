@@ -7,8 +7,8 @@ namespace coup
     {
 
     public:
-        Duke(Game &game, string name);
-        void block(Player &p);
+        Duke(Game &game, string const &name);
+       static void block(Player &p);
         void tax();
     };
 }
