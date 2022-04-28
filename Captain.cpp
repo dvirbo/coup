@@ -21,15 +21,14 @@ namespace coup
         this->_game->round();
         if (p._coins < 2)
         {
+            throw domain_error("the player dont have enough money to steal");
             return; // check if i need to throw an eror..
         }
-        
-        
-            p._coins -= 2;
-            this->_coins += 2;
-            this->_enemy.push_back(p);
-            this->_lastAct = "steal";
-        
+
+        p._coins -= 2;
+        this->_coins += 2;
+        this->_enemy.push_back(p);
+        this->_lastAct = "steal";
     }
 
     void Captain::block(Player &p)

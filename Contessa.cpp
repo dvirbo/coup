@@ -3,12 +3,12 @@ using namespace std;
 
 namespace coup
 {
-    Contessa::Contessa(Game &game, string const &name) : Player(game,name)
+    Contessa::Contessa(Game &game, string const &name) : Player(game, name)
     { // call the constructor of the Parent class..
         this->_roleName = "Contessa";
     }
 
-    void Contessa::block(Player p) // block the Assassin
+    void Contessa::block(Player &p) // block the Assassin
     {
         // check if the player that block is the Assassin - he is the only one that can blocked by Contessa
         string checkRole = p._roleName;
@@ -18,6 +18,8 @@ namespace coup
             return;
         }
         this->_game->_list.push_back(p._enemy.back()._name); // restore the blocked player name to the list
+        p._lastAct = "";
+        p._enemy.pop_back();
     }
 
 }

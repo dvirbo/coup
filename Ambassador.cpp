@@ -33,8 +33,8 @@ namespace coup
         this->_game->round();
         if (a._coins == 0)
         {
-            throw domain_error("player a don't have any money");
             this->_lastAct = "";
+            throw domain_error("player a don't have any money");
             return;
         }
 
