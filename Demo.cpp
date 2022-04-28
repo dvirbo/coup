@@ -64,6 +64,7 @@ int main() {
 	}catch (const std::exception &e){
 		std::cerr << e.what() << '\n';
 	}
+	
 	duke.income();
 	assassin.foreign_aid();
 

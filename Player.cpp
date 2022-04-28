@@ -14,11 +14,12 @@ namespace coup
         this->_lastAct = "";
         this->_game->_list.push_back(name); // add the name player to the list
     }
-    // this function check if this is the turn of the player
-    bool Player::check_turn() const
+
+ // this function check if this is the turn of the player
+    bool Player::check_turn() const 
     {
         string tmp = this->_game->turn();
-        if (this->_name != tmp)
+        if (this->_name == tmp)
         {
             if (this->_coins == MUSTCOUP)
             {
@@ -29,6 +30,8 @@ namespace coup
         }
         return false;
     }
+
+    
 
     void Player::income()
     {
