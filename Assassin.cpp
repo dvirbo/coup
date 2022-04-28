@@ -3,19 +3,23 @@ using namespace std;
 
 namespace coup
 {
-    Assassin::Assassin(Game &game, string name) : Player(game, name) {}
-
-    void Assassin::coup(Player p)
+    Assassin::Assassin(Game &game, string name) : Player(game, name)
     {
-        if (!check_turn)
+        this->_roleName = "Assassin";
+    }
+
+    void Assassin::coup(Player &p)
+    {
+        if (!check_turn())
         {
-            throw "this is not the player turn";
+            throw domain_error("this is not the player turn");
             return;
         }
+        this->_game->round();
 
         if (this->_coins < 3)
         {
-            throw "Assassin need at least 3 coins to coup";
+            throw domain_error("Assassin need at least 3 coins to coup");
             return;
         }
         for (unsigned int i = 0; i < this->_game->_list.size(); i++)
@@ -24,11 +28,12 @@ namespace coup
             { //  equals:
                 this->_game->_list.erase(this->_game->_list.begin() + i);
                 this->_coins -= 3;
-                this->_game->_curr = (this->_game->_curr + 1) % this->_game->_list.size();
+                this->_lastAct = "coup";
+                this->_enemy.push_back(p);
                 return;
             }
         }
-        throw "the player did not exist in the list";
+        throw domain_error("the player did not exist in the list");
     }
 
 }

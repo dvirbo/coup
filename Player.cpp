@@ -9,6 +9,7 @@ namespace coup
         this->_game = &game;
         this->_name = name;
         this->_coins = 0;
+        this->_lastAct = "";
         this->_game->_list.push_back(name); // add the name player to the list
     }
     // this function check if this is the turn of the player
@@ -35,10 +36,11 @@ namespace coup
         {
             this->_coins += 1;
             // change the curr player turn:
-            this->_game->_curr = (this->_game->_curr + 1) % this->_game->_list.size();
+            this->_game->round();
+            this->_lastAct = "income";
             return;
         }
-        throw "this is not the player turn";
+        throw domain_error("this is not the player turn");
     }
 
     void Player::foreign_aid()
@@ -47,19 +49,21 @@ namespace coup
         {
             this->_coins += 2;
             // change the curr player turn:
-            this->_game->_curr = (this->_game->_curr + 1) % this->_game->_list.size();
+            this->_game->round();
+            this->_lastAct = "foreign_aid";
             return;
         }
-        throw "this is not the player turn";
+        throw domain_error("this is not the player turn");
     }
 
-    void Player::coup(Player p)
+    void Player::coup(Player &p)
     {
-        if (check_turn)
+        if (check_turn())
         {
+            this->_game->round();
             if (this->_coins < 7)
             {
-                throw "the player dont have enough coins";
+                throw domain_error("the player dont have enough coins");
                 return;
             }
 
@@ -69,18 +73,19 @@ namespace coup
                 { //  equals
                     this->_game->_list.erase(this->_game->_list.begin() + i);
                     this->_coins -= 7;
-                    this->_game->_curr = (this->_game->_curr + 1) % this->_game->_list.size();
+                    this->_lastAct = "coup";
+                    this->_enemy.push_back(p);
                     return;
                 }
             }
-            throw "the player did not exist in the list";
+            throw domain_error("the player did not exist in the list");
         }
-        throw "this is not the player turn";
+        throw domain_error("this is not the player turn");
     }
 
     string Player::role()
     {
-        return this->_name;
+        return this->_roleName;
     }
 
     int Player::coins()

@@ -9,7 +9,7 @@ namespace coup
     {
     public:
         Ambassador(Game &game, string name); // constuctor
-        void block(Player p); // prevent the steel
-        void transfer(Player a, Player b);
+        void block(Player &p); // prevent the steel
+        void transfer(Player &a, Player &b);
     };
 }

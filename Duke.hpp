@@ -8,7 +8,7 @@ namespace coup
 
     public:
         Duke(Game &game, string name);
-        void block(Player p);
+        void block(Player &p);
         void tax();
     };
 }

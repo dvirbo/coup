@@ -9,6 +9,6 @@ namespace coup
     {
     public:
         Assassin(Game &game, string name); // constuctor
-        void coup(Player p);
+        void coup(Player &p);
     };
 }

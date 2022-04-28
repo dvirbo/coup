@@ -9,7 +9,7 @@ namespace coup
     {
     public:
         Captain(Game &game, string name); // constuctor
-        void steal(Player p);
-        void block(Player p);
+        void steal(Player &p);
+        void block(Player &p);
     };
 }

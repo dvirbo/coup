@@ -5,21 +5,33 @@ namespace coup
 {
     Duke::Duke(Game &game, string name) : Player(game, name)
     { // call the constructor of the Parent class..
+                this->_roleName = "Duke";
+
     }
 
-    void Duke::block(Player p)
+    void Duke::block(Player &p)
     {
-
-        cout << "block by Duke" << endl;
+        if (p._lastAct.compare("foreign_aid") != 0)
+        {
+            throw domain_error("Duke can block only foreign_aid");
+            return;
+        }
+        else
+        {
+            p._coins -= 2;
+            p._lastAct = "";
+        }
     }
 
     void Duke::tax()
     {
-        if (!check_turn)
+        if (!check_turn())
         {
-            throw "this is not the player turn";
+            throw domain_error("this is not the player turn");
             return;
         }
+        this->_game->round();
+        this->_lastAct = "";
         this->_coins += 3;
     }
 
