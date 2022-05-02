@@ -10,7 +10,7 @@ namespace coup
     {
     public:
        Contessa(Game &game, string const &name); //constuctor
-        void block(Player &p);
+       static void block(Player &p);
     };
 }
 

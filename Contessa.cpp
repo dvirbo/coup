@@ -17,9 +17,9 @@ namespace coup
             throw domain_error("Contessa can't block this player");
             return;
         }
-        this->_game->_list.push_back(p._enemy.back()._name); // restore the blocked player name to the list
+        p._enemy->_alive = 1; // restore the blocked player name to the list -- need to change it
         p._lastAct = "";
-        p._enemy.pop_back();
+        p._enemy = NULL;
     }
 
 }

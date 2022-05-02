@@ -81,10 +81,3 @@ TEST_CASE("COUP")
 
 }
 
-/*
-	Duke duke{game, "Moshe"};
-	Assassin assassin{game, "Yossi"};
-	Ambassador ambassador{game, "Meirav"};
-	Captain captain{game, "Reut"};
-	Contessa contessa{game, "Gilad"};
-*/

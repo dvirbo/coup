@@ -3,37 +3,38 @@ using namespace std;
 
 namespace coup
 {
-    Assassin::Assassin(Game &game, string const &name) :  Player(game, name)
+    Assassin::Assassin(Game &game, string const &name) : Player(game, name)
     {
         this->_roleName = "Assassin";
     }
 
-    void Assassin::coup(Player &p)
+    void Assassin::coup(Player &other)
     {
         if (!check_turn())
         {
             throw domain_error("this is not the player turn");
             return;
         }
-        this->_game->round();
 
         if (this->_coins < 3)
         {
             throw domain_error("Assassin need at least 3 coins to coup");
             return;
         }
-        for (unsigned int i = 0; i < this->_game->_list.size(); i++)
+        const int SEVEN = 7;
+        const int SIX = 6;
+
+        other._alive = 0; // now he is dead..
+        this->_lastAct = "coup";
+        this->_enemy = &other; // use in case Contessa will block
+        if (this->_coins > SIX)
         {
-            if (p._name != this->_game->_list[i] )
-            { //  equals:
-                this->_game->_list.erase(this->_game->_list.begin() + i);
-                this->_coins -= 3;
-                this->_lastAct = "coup";
-                this->_enemy.push_back(p);
-                return;
-            }
+            this->_coins -= SEVEN;
         }
-        throw domain_error("the player did not exist in the list");
+        else
+        {
+            this->_coins -= 3;
+        }
     }
 
 }

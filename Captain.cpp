@@ -18,7 +18,6 @@ namespace coup
             throw domain_error("this is not the player turn");
             return;
         }
-        this->_game->round();
         if (p._coins < 2)
         {
             throw domain_error("the player dont have enough money to steal");
@@ -27,7 +26,7 @@ namespace coup
 
         p._coins -= 2;
         this->_coins += 2;
-        this->_enemy.push_back(p);
+        this->_enemy = &p;
         this->_lastAct = "steal";
     }
 
@@ -39,11 +38,7 @@ namespace coup
             throw domain_error("Captain can't block this player");
             return;
         }
-
-        p._enemy.back()._coins += 2;
-        p._coins -= 2;
-        p._enemy.pop_back();
-        p._lastAct = ""; // to prevent mult blocking...
+        p.blocked();
     }
 
 }

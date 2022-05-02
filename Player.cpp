@@ -11,27 +11,35 @@ namespace coup
         this->_game = &game;
         this->_name = name;
         this->_coins = 0;
+        this->_alive = 1;
         this->_lastAct = "";
-        this->_game->_list.push_back(name); // add the name player to the list
+        this->_enemy = NULL;
+        this->_game->addPlayer(this);
     }
 
- // this function check if this is the turn of the player
-    bool Player::check_turn() const 
+    // this function check if this is the turn of the player
+    bool Player::check_turn()
     {
         string tmp = this->_game->turn();
         if (this->_name == tmp)
+        // move to the next to prevent another call
         {
+            this->_game->round();
             if (this->_coins == MUSTCOUP)
             {
-                // need to call coup with some player object.. how to do that?
-                // coup()
+                for (Player *p : this->_game->_list)
+                {
+                    if (this->_name != p->_name)
+                    {
+                        Player &p1 = *p;
+                        this->coup(p1);
+                    }
+                }
             }
             return true;
         }
         return false;
     }
-
-    
 
     void Player::income()
     {
@@ -39,11 +47,11 @@ namespace coup
         {
             this->_coins += 1;
             // change the curr player turn:
-            this->_game->round();
             this->_lastAct = "income";
             return;
         }
-        throw domain_error("this is not the player turn");
+        string ans = "this is not "+ this->_name +" turn";
+        throw domain_error(ans);
     }
 
     void Player::foreign_aid()
@@ -52,38 +60,36 @@ namespace coup
         {
             this->_coins += 2;
             // change the curr player turn:
-            this->_game->round();
             this->_lastAct = "foreign_aid";
             return;
         }
         throw domain_error("this is not the player turn");
     }
 
-    void Player::coup(Player &p)
+    void Player::coup(Player &other)
     {
-        if (check_turn())
+        if (!check_turn())
         {
-
-            this->_game->round();
-            if (this->_coins < COST)
-            {
-                throw domain_error("the player dont have enough coins");
-                return;
-            }
-
-            for (unsigned int i = 0; i < this->_game->_list.size(); i++)
-            {
-                if (p._name != this->_game->_list[i])
-                { //  equals
-                    this->_game->_list.erase(this->_game->_list.begin() + i);
-                    this->_coins -= COST;
-                    this->_lastAct = "coup";
-                    this->_enemy.push_back(p);
-                    return;
-                }
-            }
             throw domain_error("the player did not exist in the list");
         }
+
+        if (this->_coins < COST)
+        {
+            throw domain_error("the player dont have enough coins");
+            return;
+        }
+
+        for (Player *p : this->_game->_list)
+        {
+            if (p->_name != other._name)
+            { //  equals
+                other._alive = 0;
+                this->_coins -= COST;
+                this->_lastAct = "coup";
+                return;
+            }
+        }
+
         throw domain_error("this is not the player turn");
     }
 
@@ -92,9 +98,24 @@ namespace coup
         return this->_roleName;
     }
 
-     int Player::coins() const
+    int Player::coins() const
     {
         return this->_coins;
+    }
+
+    void Player::blocked()
+    {
+        this->_enemy->_coins += 2;
+        if (this->_coins > 2)
+        {
+            this->_coins -= 2;
+        }
+        else
+        {
+            this->_coins = 0;
+        }
+        this->_enemy = NULL;
+        this->_lastAct = "";
     }
 
 } // namespace coup
