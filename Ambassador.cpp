@@ -6,25 +6,35 @@ namespace coup
     Ambassador::Ambassador(Game &game, string const &name) : Player(game, name)
     {
         this->_roleName = "Ambassador";
-        
     }
 
     void Ambassador::block(Player &p)
     {
-        string ans = p._roleName;
-        
-        // check if the Player is the Captain and if the last act was steal..
-        if (ans != "Captain" || p._lastAct != "steal")
+
+        if (p._lastAct.compare("two"))
         {
-            throw domain_error("eror of input");
+            p._coins -= 2;
+            p._enemy->_coins += 2;
+        }
+        else if (p._lastAct.compare("one"))
+        {
+            p._coins -= 1;
+            p._enemy->_coins += 1;
+        }
+
+        else if (p._lastAct.compare("steal"))
+        {
+        }
+        else
+        {
+            throw domain_error("Ambassador can't block this player");
             return;
         }
-        p.blocked();
     }
     // transfers 1 coin from a to b
     void Ambassador::transfer(Player &a, Player &b)
     {
-        if (!check_turn())
+        if (check_turn() == false)
         {
             throw domain_error("this is not the player turn");
             return;
@@ -35,10 +45,10 @@ namespace coup
             throw domain_error("player a don't have any money");
             return;
         }
-
+        this->_game->round(); // change the curr player turn:
         a._coins--;
         b._coins++;
-        
+
         this->_lastAct = "transfer";
     }
 

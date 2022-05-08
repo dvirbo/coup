@@ -10,6 +10,6 @@ namespace coup
     public:
         Captain(Game &game, string const &name); // constuctor
         void steal(Player &p);
-        static void block(Player &p);
+        void block(Player &p);
     };
 }

@@ -18,27 +18,50 @@ namespace coup
             throw domain_error("this is not the player turn");
             return;
         }
-        if (p._coins < 2)
+        this->_game->round(); // change the curr player turn:
+        if (p._coins >= 2)
         {
-            throw domain_error("the player dont have enough money to steal");
-            return; // check if i need to throw an eror..
+            p._coins -= 2;
+            this->_coins += 2;
+            this->_enemy = &p;
+            this->_lastAct = "two";
         }
-
-        p._coins -= 2;
-        this->_coins += 2;
-        this->_enemy = &p;
-        this->_lastAct = "steal";
+        else if (p._coins == 1)
+        {
+            p._coins--;
+            this->_coins++;
+            this->_enemy = &p;
+            this->_lastAct = "one";
+        }
+        else
+        {
+            this->_enemy = &p;
+            this->_lastAct = "steal";
+        }
     }
 
     void Captain::block(Player &p)
     {
-        string ans = p.role();
-        if (ans != "Captain" || p._lastAct != "steal")
+
+        if (p._lastAct.compare("two"))
+        {
+            p._coins -= 2;
+            p._enemy->_coins += 2;
+        }
+        else if (p._lastAct.compare("one"))
+        {
+            p._coins -= 1;
+            p._enemy->_coins += 1;
+        }
+
+        else if (p._lastAct.compare("steal"))
+        {
+        }
+        else
         {
             throw domain_error("Captain can't block this player");
             return;
         }
-        p.blocked();
     }
 
 }
