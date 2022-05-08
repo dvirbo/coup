@@ -19,7 +19,7 @@ namespace coup
             return;
         }
         this->_game->round(); // change the curr player turn:
-        if (p._coins >= 2)
+        if (p._coins > 1)
         {
             p._coins -= 2;
             this->_coins += 2;
@@ -28,8 +28,8 @@ namespace coup
         }
         else if (p._coins == 1)
         {
-            p._coins--;
-            this->_coins++;
+            p._coins -= 1;
+            this->_coins += 1;
             this->_enemy = &p;
             this->_lastAct = "one";
         }
@@ -42,20 +42,22 @@ namespace coup
 
     void Captain::block(Player &p)
     {
+    
 
-        if (p._lastAct.compare("two"))
+        if (p._lastAct.compare("two") == 0)
         {
             p._coins -= 2;
             p._enemy->_coins += 2;
         }
-        else if (p._lastAct.compare("one"))
+        else if (p._lastAct.compare("one") == 0)
         {
             p._coins -= 1;
             p._enemy->_coins += 1;
         }
 
-        else if (p._lastAct.compare("steal"))
+        else if (p._lastAct.compare("steal") == 0)
         {
+            return;
         }
         else
         {

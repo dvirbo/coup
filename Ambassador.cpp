@@ -11,18 +11,18 @@ namespace coup
     void Ambassador::block(Player &p)
     {
 
-        if (p._lastAct.compare("two"))
+        if (!p._lastAct.compare("two"))
         {
             p._coins -= 2;
             p._enemy->_coins += 2;
         }
-        else if (p._lastAct.compare("one"))
+        else if (!p._lastAct.compare("one"))
         {
             p._coins -= 1;
             p._enemy->_coins += 1;
         }
 
-        else if (p._lastAct.compare("steal"))
+        else if (!p._lastAct.compare("steal"))
         {
         }
         else

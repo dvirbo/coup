@@ -69,7 +69,7 @@ TEST_CASE("COUP")
 
 	CHECK(assassin._coins == 0);
 	CHECK_THROWS(ambassador.transfer(assassin, duke)); //  assassin have only 1 coin..
-	CHECK_THROWS(captain.steal(assassin));
+	CHECK_NOTHROW(captain.steal(assassin));
 
 	CHECK_THROWS(contessa.block(assassin)); // can't block 2 times
 	CHECK_NOTHROW(contessa.foreign_aid()); 
